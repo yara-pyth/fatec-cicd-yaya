@@ -25,4 +25,25 @@ jobs:
       - name: Executar testes
         run: |
           python -m pytest
-          
+
+            codeql:
+    name: Análise CodeQL
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
+
+      - name: Inicializar CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Executar análise
+        uses: github/codeql-action/analyze@v3
+        
